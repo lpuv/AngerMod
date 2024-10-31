@@ -32,6 +32,7 @@ public class AngerMod {
         MinecraftForge.EVENT_BUS.register(this);
 
         MinecraftForge.EVENT_BUS.register(BlockBreakEvent.class);
+        MinecraftForge.EVENT_BUS.register(UnluckyKills.class);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);

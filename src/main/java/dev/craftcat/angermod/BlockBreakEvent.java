@@ -6,7 +6,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,8 +40,8 @@ public class BlockBreakEvent {
                 }
             }
         } catch (Exception e) {
-            AngerMod.LOGGER.warn("BlockBreakEvent.onBreakBlock.Error",
-                    "An error occoured while processing onBreakBlock. Please report");
+            AngerMod.LOGGER.error("BlockBreakEvent.onBreakBlock.Error",
+                    "An error occoured while processing onBreakBlock.");
             AngerMod.LOGGER.warn(e.toString());
         }
     }
