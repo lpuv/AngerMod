@@ -53,7 +53,6 @@ public class BlockBreakEvent {
         double z = player.position().z;
 
         List<Piglin> piglins = player.level().getNearbyEntities(Piglin.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().expandTowards(x + range, y + range, z + range));
-        List<PiglinBrute> piglinBrutes = player.level().getNearbyEntities(PiglinBrute.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().expandTowards(x + range, y + range, z + range));
         List<ZombifiedPiglin> zombifiedPiglins = player.level().getNearbyEntities(ZombifiedPiglin.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().expandTowards(x + range, y + range, z + range));
 
 
@@ -67,17 +66,6 @@ public class BlockBreakEvent {
             piglin.getBrain().setMemory(MemoryModuleType.ANGRY_AT, player.getUUID());
             piglin.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, player);
             AngerMod.LOGGER.info("angered piglin at " + piglin.position());
-        }
-        for (PiglinBrute piglinBrute : piglinBrutes) {
-            player.doHurtTarget(piglinBrute);
-            piglinBrute.setTarget(player);
-            piglinBrute.setAggressive(true);
-            piglinBrute.getBrain().setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, player);
-            piglinBrute.getBrain().setMemory(MemoryModuleType.NEAREST_HOSTILE, player);
-            piglinBrute.getBrain().setMemory(MemoryModuleType.NEAREST_ATTACKABLE, player);
-            piglinBrute.getBrain().setMemory(MemoryModuleType.ANGRY_AT, player.getUUID());
-            piglinBrute.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, player);
-            AngerMod.LOGGER.info("angered piglin brute at " + piglinBrute.position());
         }
         for (ZombifiedPiglin zombifiedPiglin : zombifiedPiglins) {
             player.doHurtTarget(zombifiedPiglin);
