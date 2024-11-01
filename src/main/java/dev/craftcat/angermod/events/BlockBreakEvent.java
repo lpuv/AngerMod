@@ -1,6 +1,8 @@
-package dev.craftcat.angermod;
+package dev.craftcat.angermod.events;
 
 
+import dev.craftcat.angermod.AngerMod;
+import dev.craftcat.angermod.Config;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.EnderMan;

@@ -1,6 +1,9 @@
 package dev.craftcat.angermod;
 
 import com.mojang.logging.LogUtils;
+import dev.craftcat.angermod.events.BlockBreakEvent;
+import dev.craftcat.angermod.events.PlayerUseEvent;
+import dev.craftcat.angermod.events.UnluckyKills;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,6 +36,7 @@ public class AngerMod {
 
         MinecraftForge.EVENT_BUS.register(BlockBreakEvent.class);
         MinecraftForge.EVENT_BUS.register(UnluckyKills.class);
+        MinecraftForge.EVENT_BUS.register(PlayerUseEvent.class);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);

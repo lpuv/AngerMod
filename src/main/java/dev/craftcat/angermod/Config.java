@@ -41,6 +41,11 @@ public class Config
             .comment("The explosion radius")
             .defineInRange("explosionRadius", 5.0, 0, Double.MAX_VALUE);
 
+    // range to aggro piglins
+    private static final ForgeConfigSpec.IntValue FOOD_RANGE = BUILDER
+            .comment("Range to hurt mobs while eating food")
+            .defineInRange("foodRange", 10, 0, Integer.MAX_VALUE);
+
     // list of banned blocks
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> BANNED_BLOCKS = BUILDER
             .comment("A list of all blocks which cause anger in mobs")
@@ -56,6 +61,26 @@ public class Config
             .comment("A list of all items that bypass mob explosion chance")
             .defineListAllowEmpty("antiExplodingItems", List.of("minecraft:diamond_sword"), Config::validateItemName);
 
+    // list of items that trigger pigs
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_PIG_TRIGGER = BUILDER
+            .comment("A list of all items that trigger pig anger")
+            .defineListAllowEmpty("foodPigTrigger", List.of("minecraft:cooked_porkchop", "minecraft:porkchop"), Config::validateItemName);
+
+    // list of items that trigger cows
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_COW_TRIGGER = BUILDER
+            .comment("A list of all items that trigger cow anger")
+            .defineListAllowEmpty("foodCowTrigger", List.of("minecraft:cooked_beef", "minecraft:beef"), Config::validateItemName);
+
+    // list of items that trigger chickens
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_CHICKEN_TRIGGER = BUILDER
+            .comment("A list of all items that trigger chicken anger")
+            .defineListAllowEmpty("foodChickenTrigger", List.of("minecraft:cooked_chicken", "minecraft:chicken"), Config::validateItemName);
+
+    // list of items that trigger sheep
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> FOOD_SHEEP_TRIGGER = BUILDER
+            .comment("A list of all items that trigger sheep anger")
+            .defineListAllowEmpty("antiExplodingItems", List.of("minecraft:coocked_mutton", "minecraft:mutton"), Config::validateItemName);
+
     // do mobs do griefing?
     private static final ForgeConfigSpec.BooleanValue DO_GRIEFING = BUILDER
             .comment("Do mobs grief blocks upon exploding?")
@@ -66,12 +91,18 @@ public class Config
 
     public static int piglinRange;
     public static int endermanRange;
+    public static int foodRange;
     public static double explodingChance;
     public static double explosionRadius;
 
     public static Set<Block> blocks;
     public static Set<EntityType> explodingMobs;
     public static Set<Item> antiExplodingItems;
+    public static Set<Item> foodPigTrigger;
+    public static Set<Item> foodCowTrigger;
+    public static Set<Item> foodChickenTrigger;
+    public static Set<Item> foodSheepTrigger;
+
 
     public static boolean doGriefing;
 
@@ -94,6 +125,7 @@ public class Config
 
         piglinRange = PIGLIN_RANGE.get();
         endermanRange = ENDERMEN_RANGE.get();
+        foodRange = FOOD_RANGE.get();
         explodingChance = EXPLODING_CHANCE.get();
         explosionRadius = EXPLOSION_RADIUS.get();
 
@@ -109,6 +141,18 @@ public class Config
 
         // convert the list of strings into a set of items
         antiExplodingItems = ANTIEXPLODING_ITEMS.get().stream()
+                .map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)))
+                .collect(Collectors.toSet());
+        foodPigTrigger = FOOD_PIG_TRIGGER.get().stream()
+                .map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)))
+                .collect(Collectors.toSet());
+        foodCowTrigger = FOOD_COW_TRIGGER.get().stream()
+                .map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)))
+                .collect(Collectors.toSet());
+        foodChickenTrigger = FOOD_CHICKEN_TRIGGER.get().stream()
+                .map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)))
+                .collect(Collectors.toSet());
+        foodSheepTrigger = FOOD_SHEEP_TRIGGER.get().stream()
                 .map(itemName -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)))
                 .collect(Collectors.toSet());
 
